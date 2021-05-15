@@ -437,8 +437,8 @@ class HHL(LinearSolver):
             qc.append(phase_estimation.inverse(), ql[:] + qb[:])
         return qc
 
-    def solve(self, matrix: Union[np.ndarray, QuantumCircuit],
-              vector: Union[np.ndarray, QuantumCircuit],
+    def solve(self, matrix: Union[list, QuantumCircuit],
+              vector: Union[list, QuantumCircuit],
               observable: Optional[Union[LinearSystemObservable, BaseOperator,
                                          List[LinearSystemObservable], List[BaseOperator]]] = None,
               observable_circuit: Optional[Union[QuantumCircuit, List[QuantumCircuit]]] = None,
@@ -471,6 +471,8 @@ class HHL(LinearSolver):
                 raise ValueError('If observable is passed, observable_circuit and post_processing '
                                  'cannot be set.')
 
+        matrix = np.array(matrix)
+        vector = np.array(vector)
         solution = LinearSolverResult()
         solution.state = self.construct_circuit(matrix, vector)
         solution.euclidean_norm = self._calculate_norm(solution.state)
