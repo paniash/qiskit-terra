@@ -241,6 +241,7 @@ def remove_trivial_barriers(schedule: Schedule) -> Schedule:
 
 def align_measures(
     schedules: Iterable[ScheduleComponent],
+    cal_gate_parameters: List[float],
     inst_map: Optional[InstructionScheduleMap] = None,
     cal_gate: str = "u3",
     max_calibration_duration: Optional[int] = None,
